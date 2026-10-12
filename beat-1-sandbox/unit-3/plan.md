@@ -237,9 +237,10 @@ on `main` (only new files under `tests/integration/`). `make lint` and
 
 ## Deviations
 
-None. The build matches the plan: the same two new files, the same five tests
-with the same assertions, and no edits outside `tests/integration/`. Every
-check in the test plan came out as predicted. The posted plan comment is still
+One deviation, added after the build: a one-line fix to
+`.github/workflows/ci.yml` (the last entry below). Otherwise the build matches
+the plan: the same two new test files and the same five tests with the same
+assertions. Every check in the test plan came out as predicted. The posted plan comment is still
 accurate, so I haven't posted a correction on the issue.
 
 What the build settled, for the record:
@@ -282,3 +283,10 @@ Still open (not started yet, as opposed to changed):
   exists.
 - Approach step 3's push, and the PR, which should say I used the
   real-app approach and mention the now-dead exit-5 shim in `ci.yml:90`.
+
+Added after the PR pre-check (no change to the build itself):
+
+- **Commit reworded, not changed.** CONTRIBUTING requires Conventional Commits, so I amended `c30987d` ("add integration tests for auth middleware") to `423d17e` ("test(api): add integration tests for auth middleware"). `git diff c30987d 423d17e` is empty. Only the message changed.
+- **C and D now have captured output** in `test_evidence.md` (sections 5 and 4c), not just the prose above. The results are the ones recorded under C and D above.
+- **Checks the plan didn't list.** Step 3 named the four template checks. CONTRIBUTING and CI also run `black --check .` and the frontend job. Black passes. The frontend suite has one failure, `ProfileForm > validates portfolio URL character limit`, which times out at 5000 ms. It fails the same way on `main`. With `--testTimeout=20000` all 18 tests pass, and upstream CI's `frontend` job passed on `main` @ `2f4e82f`, so the test is slow on my machine, not broken. This branch doesn't touch `frontend/`. The PR says so.
+- **Deviation: one file outside the Files table, `.github/workflows/ci.yml`.** The plan put CI config out of scope. A manual CI run on my fork ([run 38207110030](https://github.com/rose413/pathreview-ai301-fa26-s3/actions/runs/38207110030)) passed `lint`, `typecheck`, `test-unit` and `frontend`, but `test-integration` failed. The job sets `DATABASE_URL: postgresql://...`, the app's default is `postgresql+asyncpg://...` (`core/config.py:12`), and `core/database.py` builds an async engine at import time. With the plain URL, SQLAlchemy loads `psycopg`, which isn't installed, so importing `api.main` in `tests/integration/conftest.py` fails with `ModuleNotFoundError: No module named 'psycopg'`. Before this PR nothing in that job imported the app, so nobody had hit it. I reproduced it locally with CI's env vars, then changed that one line to `postgresql+asyncpg://...` (commit `59d352e`), and with the corrected env all 5 tests pass. I chose this over overriding `DATABASE_URL` inside `conftest.py`, which would have kept the diff in `tests/integration/` but silently overridden CI's setting for every future test in that folder. The exit-5 shim stays as planned (still out of scope).
