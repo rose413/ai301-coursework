@@ -57,8 +57,9 @@ one in the week it belongs to.
 
 **Unit 5: [one line on the tool work]**
 
-[2-4 sentences: what you built (the scout, your strategy), what broke
-or fell short, what changed because of it.]
+I built issue-scout: `gh search issues` queries traced to my fit profile, free ranking filters (drop assigned, drop anything not updated in 90 days, fewest comments first), and a five-check rubric that grades the top 5. Scan 1 accepted 4 of 5, but checking those accepts against the live repos with `gh api` turned up two misreads: martoniel/nexuspay#34 passed `repo-in-use` even though every commit was from the day the repo was created, and legend-esc/carbonchain#1190 passed `unclaimed` even though an unlinked merged PR (#1209) had already done part of the work. All five finalists also came from one query, and none used the Flask/FastAPI my profile names. So I tightened `repo-in-use` (commits on at least
+2 days, 7+ days apart, or a maintainer response), made an unlinked PR that overlaps the requested work grade unclear (which counts as fail), added a `fastapi OR flask` query without quotes (with quotes, GitHub matched it as one literal phrase and returned 1
+result), and capped the top 5 at 2 per query and 1 per repo.
 
 **Unit 6: [one line on the tool work]**
 
