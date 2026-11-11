@@ -1,104 +1,79 @@
-# Contribution: [Issue Title]
+# Contribution: Add POST /organizations/:organization_id/applications/list endpoint
 
 Path: `beat-2-contribution/contribution-story.md`
 
-This file is Assignment 5, and it is graded at the path above; a copy kept anywhere else in
-the repository is not read. **Keep every section header below under its exact name** — the
-format criteria grade exactly that. Your course repo link is the whole submission: no tool
-files and no evidence uploads are part of Assignment 5.
-
-**Contribution Number:** [1]
-**Student:** [Student name]
-**GitHub Username:** [your GitHub username, exactly as it appears on your profile - no @, no
-profile URL. Your comments upstream are identified by this name.]
-**Issue:** [GitHub issue link]
-**Pull Request:** [GitHub PR link, once opened]
-
-One repository, built across units 5 to 8, telling the whole story of your real
-contribution. Fill it as you work, not at the end — the sections below ask for evidence that
-is far easier to write down as it happens than to reconstruct in the last weekend.
-
-Contribution Number stays `[1]` unless you make more than one contribution this term; it
-just numbers them.
+**Contribution Number:** 1
+**Student:** Irene Chang
+**GitHub Username:** rose413
+**Issue:** [HHS/simpler-grants-gov#13175](https://github.com/HHS/simpler-grants-gov/issues/13175)
+**Pull Request:** [HHS/simpler-grants-gov#13257](https://github.com/HHS/simpler-grants-gov/pull/13257)
 
 ---
 
 ## Toolkit
 
-Every story section below, from Why I Chose This Issue through Pull
-Request, ends with a Toolkit block: which tool did that phase's work
-and how you used it, what it produced, what difficulties or
-shortcomings it presented, and what you changed or would change
-because of them. Together the blocks are the thread the rubric's
-Toolkit points read, and they are the raw material for your unit-9
-portfolio, so keep them current as you work rather than
-reconstructing them later.
+Every story section below ends with a Toolkit block. This section keeps one dated entry per
+week of tool work.
 
-A Toolkit block looks like this (copy it into each story section and
-fill it there):
+**Unit 5: Built issue-scout and tightened its rubric after checking its accepts by hand**
 
-```text
-**Toolkit**
+I built issue-scout: `gh search issues` queries based on my fit profile, free ranking filters
+(drop assigned issues, drop anything not updated in 90 days, sort by fewest comments), and a
+five-check rubric that grades the top 5. Scan 1 accepted 4 of 5, but checking those accepts
+against the live repos with `gh api` turned up two misreads. martoniel/nexuspay#34 passed
+`repo-in-use` even though every commit was from the day the repo was created, and
+legend-esc/carbonchain#1190 passed `unclaimed` even though an unlinked merged PR (#1209) had
+already done part of the work. So I tightened `repo-in-use` (commits on at least 2 days, 7+ days
+apart, or a maintainer response), graded overlapping unlinked PRs as unclear (counts as fail),
+added an unquoted `fastapi OR flask` query, and capped the top 5 at 2 per query and 1 per repo.
 
-- Tool: [which tool did this phase's work, and how you used it]
-- What it produced: [described in a sentence or a short excerpt]
-- Difficulties: [what fought you or fell short, or "none met"]
-- What changed: [the patch, revision, or workaround, what you would
-  update, or "nothing"]
-```
+**Unit 6: Voice-guard and repo-memory file for the claim comment**
 
-This section also keeps one short dated entry per week of tool work,
-starting below: what you built or changed that week, what broke, and
-what you changed because of it. The blocks tell the story where it
-happened; these entries are the toolkit's own timeline.
+The voice-guard was too strict on my claim comment's wording because its rules assumed a
+bug-fix issue, and mine asks for a new feature (a missing endpoint). I made the rules more
+concise and changed them so they also fit feature requests.
+TODO: name the exact rule you changed.
 
-All four entries are graded. Keep every heading below, and fill each
-one in the week it belongs to.
+**Unit 7: Ship-gate could not read `gh pr create --help` from PowerShell**
 
-**Unit 5: [one line on the tool work]**
+At first, the ship-gate could not read `gh pr create --help` on my real branch, because Claude
+could not run it from my PowerShell setup. I changed the ship-gate to read the help through the
+PowerShell terminal, and after that it could check my PR command.
 
-I built issue-scout: `gh search issues` queries traced to my fit profile, free ranking filters (drop assigned, drop anything not updated in 90 days, fewest comments first), and a five-check rubric that grades the top 5. Scan 1 accepted 4 of 5, but checking those accepts against the live repos with `gh api` turned up two misreads: martoniel/nexuspay#34 passed `repo-in-use` even though every commit was from the day the repo was created, and legend-esc/carbonchain#1190 passed `unclaimed` even though an unlinked merged PR (#1209) had already done part of the work. All five finalists also came from one query, and none used the Flask/FastAPI my profile names. So I tightened `repo-in-use` (commits on at least
-2 days, 7+ days apart, or a maintainer response), made an unlinked PR that overlaps the requested work grade unclear (which counts as fail), added a `fastapi OR flask` query without quotes (with quotes, GitHub matched it as one literal phrase and returned 1
-result), and capped the top 5 at 2 per query and 1 per repo.
+**Unit 8: PR-monitor and playbook**
 
-**Unit 6: [one line on the tool work]**
-
-[2-4 sentences: the voice-guard, the repo-memory file. What broke or
-fell short, and what changed because of it. "Nothing broke" counts when
-it is true - say how you know.]
-
-**Unit 7: [one line on the tool work]**
-
-[2-4 sentences: the ship-gate and your gate manifest. What it produced
-on your real branch, what fought you, what changed because of it.]
-
-**Unit 8: [one line on the tool work]**
-
-[2-4 sentences: the PR-monitor and your playbook. What it read, what it
-drafted, what you did with the draft.]
+- Response rules: my replies to a reviewer open by thanking them and answering their question
+  directly. They never argue or push for a merge.
+- Staleness thresholds: TODO: the usual wait from five recent merged PRs, plus a few days.
+- Nudge etiquette: one polite nudge on the PR thread after the threshold passes, tagging only
+  the maintainer who triaged the issue.
+- Walk-away criteria: I close my PR if a maintainer says the work isn't wanted or another PR
+  replaces it. My close note thanks them and links the replacement.
 
 ---
 
 ## Why I Chose This Issue
 
-[1-2 paragraphs in your own words: how you searched, what your scan
-surfaced, what your scout's verdict said, why this issue fits your
-profile, and what you hope to learn. If your scout's verdict on it
-was reject and you chose it anyway, say so here and say why; choosing
-against your own tool silently is what loses points. Close with an
-honest read of the tool itself: where the scout fell short on a real
-wild search and what you changed or would change, or what convinced
-you it held up. **Record the link to your claim comment in this section too.**
-Not claimed yet? Write `claim pending` and today's date where the link goes,
-and add the link the moment your claim lands.]
+I searched for issues about APIs and backend development, because I want to get better at API
+development and learn good practices. The scout's first results mixed in frontend issues that
+only mentioned API topics like pagination. So I added keywords like `api` and `backend` to get
+real backend issues. I picked #13175 because it is a self-contained backend task (one new
+endpoint) in an active, well-tested Flask codebase, which fits my profile.
+
+The scout fell short on the wild search because its keywords were too broad. Next time I would
+make the query wording specific to the kind of development I want to do.
+
+Claim comment: https://github.com/HHS/simpler-grants-gov/issues/13175#issuecomment-6724732317
 
 **Toolkit**
 
-- Tool: issue-scout (your scout: your search strategy, your rubric),
-  and how you used it
-- What it produced: [the scan and its verdict on this issue, described]
-- Difficulties: [where it fell short, or "none met" if none did]
-- What changed: [what you patched or would update, or "nothing"]
+- Tool: issue-scout. I ran `gh search issues` queries from my fit profile and graded the top
+  candidates with my rubric.
+- What it produced: a ranked list of candidate issues. I chose #13175 from it after adding
+  backend keywords.
+- Difficulties: the first queries returned mostly frontend issues with a few API terms mixed in.
+- What changed: I added `api` and `backend` keywords. I would make the query wording more
+  specific to backend development.
 
 ---
 
@@ -106,26 +81,34 @@ and add the link the moment your claim lands.]
 
 **Problem Description**
 
-[In your own words, what is broken or missing?]
+The API has no `POST /v1/organizations/:organization_id/applications/list` endpoint. The route,
+schemas, and service method it needs don't exist yet.
 
 **Expected Behavior**
 
-[What should happen?]
+The endpoint returns the full, unpaginated list of the organization's open and submitted
+applications (`application_id` and `application_name`), newest first. Only members of that
+organization with the VIEW_APPLICATION privilege can call it.
 
 **Current Behavior**
 
-[What actually happens?]
+The route doesn't exist, so a request returns `404 NOT FOUND`.
 
 **Affected Components**
 
-[Which parts of the codebase are involved?]
+The `api/` folder: the organizations_v1 routes and schemas, a new service in
+`api/src/services/organizations_v1/`, and a new test file in
+`api/tests/src/api/organizations_v1/`.
 
 **Toolkit**
 
-- Tool:
-- What it produced:
-- Difficulties:
-- What changed:
+- Tool: repro-check. I graded my claim comment and repro report against the issue.
+- What it produced: an accept verdict. All six required checks and the control run passed, and
+  it suggested adding a timeframe for my next update and dropping "Draft" from the title.
+- Difficulties: `artifact-backs-claim` was hard to pass because this is a new feature, not a
+  bug, so there was no broken behavior to show.
+- What changed: I added curl output showing `applications/list` returns 404 while the existing
+  `roles/list` returns 401, which proves the route is missing.
 
 ---
 
@@ -133,31 +116,47 @@ and add the link the moment your claim lands.]
 
 **Environment Setup**
 
-[What a stranger would need to stand this up: your operating system,
-the relevant versions (language, runtime, package manager, the project
-itself), and how you set the project up. Then the challenges you faced
-and how you solved them, or that none came up.]
+- Windows 11 Home (10.0.26200), WSL2 with Ubuntu 26.04, Docker Desktop 4.47.0 (Engine 28.4.0)
+- simpler-grants-gov `main` at `d16806e`, Python 3.14 in the API container
+- Setup: clone the repo, then from `api/` run `make init` and `make start`
+  (per [DEVELOPMENT.md](https://github.com/HHS/simpler-grants-gov/blob/main/DEVELOPMENT.md))
+
+Challenge: Docker Desktop kept failing to connect to my Ubuntu WSL distro because WSL ran out
+of memory. I fixed it by adding a `.wslconfig` file that limits WSL's memory and storage use.
 
 **Steps to Reproduce**
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
+1. From `api/`, run `make init` and `make start`.
+2. Run `curl -i -X POST http://localhost:8080/v1/organizations/<any-uuid>/applications/list`.
+   It returns `404 NOT FOUND`. The same request to `.../roles/list` returns `401`, so the route
+   is missing; the 404 is not an auth problem.
+3. Run the existing roles test as a control, then the new applications test:
+   `make test args="-x -vv tests/src/api/organizations_v1/test_list_organization_applications.py"`
 
 **Reproduction Evidence**
 
-- **Commit showing reproduction:** [link to commit in your fork]
-- **Screenshots/logs:** [if applicable]
-- **My findings:** [what you discovered during reproduction; an
-  honest, evidenced cannot-reproduce that led you to re-pick or ask
-  the maintainer belongs here and costs you nothing]
+- **Commit showing reproduction:** TODO: link the commit in your fork that adds the failing test
+- **Screenshots/logs:** full output saved in `beat-2-contribution/output.md`. Key lines:
+
+```text
+test_list_organization_roles.py ... 5 passed
+test_list_organization_applications.py::test_list_organization_applications FAILED
+E       assert 404 == 200
+request.path=/v1/organizations/4799bf6f-.../applications/list  response.status_code=404
+```
+
+- **My findings:** the existing `roles/list` tests all pass, while the same kind of test against
+  `applications/list` fails with 404. That confirms the endpoint is missing, and that
+  `roles/list` is a good pattern to copy.
 
 **Toolkit**
 
-- Tool:
-- What it produced:
-- Difficulties:
-- What changed:
+- Tool: repro-check. I graded the repro report before posting it.
+- What it produced: an accept verdict (all required checks and the control run passed). It
+  flagged that the report should say when I'd post my next update.
+- Difficulties: describing "current vs. expected behavior" was awkward for a feature request.
+- What changed: I framed the current behavior as "roles/list tests pass, applications/list
+  returns 404" and added a timeframe for my next update.
 
 ---
 
@@ -165,93 +164,133 @@ and how you solved them, or that none came up.]
 
 **Analysis**
 
-[Your analysis of the root cause: what is causing the issue, traced
-to the files and functions involved.]
+`POST /organizations/:organization_id/applications/list` was never built. There is no route, no
+response schema, no service method, and no tests. The closest existing endpoint is `roles/list`
+(`organization_routes.py`, line 118), which already has the access check and response shape
+this endpoint needs.
 
 **Proposed Solution**
 
-[High-level description of your fix approach, and what you are
-deliberately NOT changing.]
+Follow the `roles/list` pattern: add a route and response schema, add a new service that
+queries the org's `IN_PROGRESS` and `SUBMITTED` applications (newest first, name falls back to
+the competition title), and add a test file. I am not changing the frontend, anything outside
+`api/`, or the generated OpenAPI spec (a daily CI job regenerates it).
 
 **Implementation Plan**
 
-1. [Modify file X to do Y]
-2. [Add or change Z]
-3. [Update tests]
+1. Add the route to `api/src/api/organizations_v1/organization_routes.py` and the schemas to
+   `organization_schemas.py` and `api/src/api/schemas/shared_schema.py`.
+2. Add `api/src/services/organizations_v1/list_organization_applications.py`.
+3. Add `api/tests/src/api/organizations_v1/test_list_organization_applications.py`.
 
-[Record deviations here as they happen: what changed mid-build and
-why. A recorded deviation is honest work; silent drift is not.]
+Deviations:
+- Added an `"Untitled Application"` final fallback, because `competition_title` can also be null
+  and the issue says the name must never be null.
+- Skipped regenerating the OpenAPI spec, because the daily `ci-openapi.yml` job does it and
+  committing it could conflict with that job.
 
 **Toolkit**
 
-- Tool:
-- What it produced:
-- Difficulties:
-- What changed:
+- Tool: plan-check. I graded my plan and plan comment against the issue and repro.
+- What it produced: an accept verdict on all five checks, plus small fixes: make the OpenAPI
+  step optional everywhere, and consider including `ACCEPTED` applications.
+- Difficulties: the `executable` and `test` checks failed at first because my plan and test
+  list were too vague.
+- What changed: I named every file path, schema, and query rule, and listed each test case with
+  its expected result.
 
 ---
 
 ## Testing Strategy
 
-[What observable checks prove the fix: your reproduction steps re-run
-against the built change (before and after), and the repo's own test
-suite or checks with the outcome shown. "Tests pass" with nothing
-observable named is not a strategy.]
+- **Before:** the new test file fails with `assert 404 == 200`, because the route doesn't exist.
+- **After:** the same command passes all 11 tests:
+  `make test args="-x -vv tests/src/api/organizations_v1/test_list_organization_applications.py"`.
+  The tests cover the 200 response, an empty org, both name fallbacks, org isolation, the status
+  filter, newest-first order, 403 (missing privilege or wrong org), 404, and 401.
+- **Regression:** `make test args="tests/src/api/organizations_v1/"` (including the
+  `roles/list` tests), plus `make format`, `make lint`, and `make lint-security`.
 
 **Toolkit**
 
-- Tool:
-- What it produced:
-- Difficulties:
-- What changed:
+- Tool: repro-check. I re-ran my reproduction steps against the built change.
+- What it produced: the 404 became a 200 with the expected fields, and the test file went from
+  failing to 11 passing.
+- Difficulties: none met
+- What changed: nothing
 
 ---
 
 ## Implementation Notes
 
-[A running log, added to as you work. Date each entry. What you
-built, decisions you made when you made them, wrong turns included.]
+**[11/10/2026]**
 
-**[Date]**
+Added the route and schemas for `POST /organizations/:organization_id/applications/list`,
+modeled on `roles/list`.
 
-[Entry]
+**[11/10/2026]**
 
-**[Date]**
+Added `services/organizations_v1/list_organization_applications.py`. It checks access with
+`get_organization_and_verify_access(..., privileges={Privilege.VIEW_APPLICATION})`, filters to
+`IN_PROGRESS` and `SUBMITTED`, orders by `created_at` descending, and loads competitions with
+`selectinload`. I added the `"Untitled Application"` fallback when I found that
+`competition_title` is also nullable.
 
-[Entry]
+**[11/10/2026]**
+
+Added `api/tests/src/api/organizations_v1/test_list_organization_applications.py` with 11 tests.
+My first test only granted `VIEW_ORG_MEMBERSHIP`. I fixed it once I saw that the access check
+requires both privileges.
 
 **Toolkit**
 
-- Tool:
-- What it produced:
-- Difficulties:
-- What changed:
+- Tool: Claude (Claude Code), used to find the relevant files and draft code and tests
+- What it produced: draft route, service, schema, and test code following the `roles/list`
+  pattern
+- Difficulties: I had to read each suggestion carefully to make sure I understood it and that it
+  matched the issue (for example, the privilege check and the null-name fallback).
+- What changed: I reviewed and adjusted the drafts and ran the tests locally before committing.
 
 ---
 
 ## Pull Request
 
-**PR Link:** [GitHub PR URL when opened]
+**PR Link:** https://github.com/HHS/simpler-grants-gov/pull/13257
 
-**PR Description:** [what the PR says; much of the content above
-adapts into it]
+**PR Description:**
+
+Fixes #13175. Adds `POST /v1/organizations/:organization_id/applications/list`, which returns
+the organization's full, unpaginated list of applications (`application_id`,
+`application_name`). It follows the same route → service → schema → test structure as
+`roles/list`.
+
+- **Route:** `organization_list_applications` in `organization_routes.py`. It uses JWT auth,
+  takes no body and no pagination, and documents 200/401/403/404.
+- **Service:** new `list_organization_applications.py`. It returns the org's `IN_PROGRESS` and
+  `SUBMITTED` applications, newest first. The name falls back to the competition title, then to
+  `"Untitled Application"`.
+- **Schemas:** `OrganizationApplicationSchema` and `OrganizationListApplicationsResponseSchema`.
+- **Tests:** 11 tests covering every acceptance criterion.
+- **Questions for reviewers:** Should `ACCEPTED` be included? Is the "Untitled Application"
+  label OK? Is requiring both `VIEW_ORG_MEMBERSHIP` and `VIEW_APPLICATION` the intended access
+  rule?
+- **AI assistance:** I used Claude to understand the codebase and draft code and tests. I
+  reviewed and understood everything before submitting.
 
 **Maintainer Feedback:**
 
-- [Date]: [feedback received, or "none yet"; silence is a normal
-  state and costs you nothing]
-- [Date]: [how you addressed it]
+- 11/10/2026: none yet
 
-**Status:** [Awaiting review / Iterating / Merged / Closed. The
-status is a fact you record, never a grade: the PR is graded as
-opened.]
+**Status:** Awaiting review
 
 **Toolkit**
 
-- Tool:
-- What it produced:
-- Difficulties:
-- What changed:
+- Tool: pr-precheck. I graded my branch, PR title, and description against my plan and the
+  issue before opening the PR.
+- What it produced: a ready-to-submit verdict and a description that follows the repo's PR
+  template. TODO: confirm the verdict.
+- Difficulties: TODO: note anything it flagged.
+- What changed: I wrote the AI assistance section in my own words.
 
 ---
 
@@ -259,25 +298,30 @@ opened.]
 
 **Technical Skills Gained**
 
-[What you learned technically, named concretely.]
+- Running a full Docker Compose dev stack inside WSL2, and tuning WSL with `.wslconfig`
+- How Flask routes, marshmallow schemas, and service functions connect in a layered API
+- SQLAlchemy filtering, ordering, and `selectinload`, plus privilege-based access checks
+- Writing pytest tests with factories, and using Claude Code with custom skills to check my work
 
 **Challenges Overcome**
 
-[What was hard and how you solved it; point at the real events, the
-Toolkit blocks above are full of them.]
+- Docker Desktop wouldn't connect to my WSL2 Ubuntu because of memory limits. I researched how
+  Docker and WSL interact and fixed it with a `.wslconfig` limit.
+- plan-check failed my `executable` and `test` checks for being vague. I learned to name exact
+  files and test cases.
+- repro-check is built for bugs, so I had to learn how to show evidence for a missing feature
+  (a 404 next to a 401 control).
 
 **What I'd Do Differently Next Time**
 
-[Reflection on your process.]
+I would spend more time understanding the repo before planning, and put more time into making
+my tools thorough from the start, so they fit feature requests as well as bugs.
 
 ---
 
 ## Resources Used
 
-[What actually helped, not a reading list. List things this story
-already shows you using: the doc you followed to set the environment
-up, the thread that explained the bug, the person who answered you.
-One real entry beats ten plausible ones.]
-
-- [Link to documentation that helped]
-- [Discussion, issue, or post that helped]
+- [simpler-grants-gov DEVELOPMENT.md](https://github.com/HHS/simpler-grants-gov/blob/main/DEVELOPMENT.md): local setup
+- The existing `roles/list` route and `test_list_organization_roles.py`: the pattern I followed
+- [Issue #13175](https://github.com/HHS/simpler-grants-gov/issues/13175): acceptance criteria
+- Microsoft's WSL `.wslconfig` documentation: fixing the Docker/WSL memory problem
